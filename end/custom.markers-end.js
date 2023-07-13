@@ -41,7 +41,7 @@ UnminedCustomMarkers = {
     markers: [],
 }
 
-fetch("https://sheets.googleapis.com/v4/spreadsheets/1HQDW4PS8_bUOXzMS4sP8eMIi4DOoB2jyE_BhJdI6gEQ/values/A2:D1000?key=AIzaSyCcB76lmXuniVlzJM810ankX2VBizashC0")
+fetch("https://sheets.googleapis.com/v4/spreadsheets/1HQDW4PS8_bUOXzMS4sP8eMIi4DOoB2jyE_BhJdI6gEQ/values/THE_END!A2:D1000?key=AIzaSyCcB76lmXuniVlzJM810ankX2VBizashC0")
 .then(function(res){
     return res.json()
 })
