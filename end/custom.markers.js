@@ -37,50 +37,35 @@ Use the imageScale property if the pin image is too large.
 */
 
 UnminedCustomMarkers = {
-
     isEnabled: false,
-
-    markers: [
-
-        // Example 1: Simple marker
-        {
-            x: -200,
-            z: -200,
-            image: "custom.pin.png",
-            imageAnchor: [0.5, 1],
-            imageScale: 0.5,
-        },
-
-        // Example 2: Marker with text
-        {
-            x: 0,
-            z: 0,
-            image: "custom.pin.png",
-            imageAnchor: [0.5, 1],
-            imageScale: 0.5,
-            text: "Marker with text",
-            textColor: "red", 
-            offsetX: 0,
-            offsetY: 20,
-            font: "bold 20px Calibri,sans serif",
-        },
-
-        // Example 3: Text only
-        {
-            x: 200,
-            z: 200,
-            text: "Text only", 
-            textColor: "yellow", 
-            offsetX: 0,
-            offsetY: 0, 
-            font: "bold 50px Calibri,sans serif",
-        },
-
-        // add your markers here
-
-
-
-
-        // do not delete the following two closing brackets
-    ]
+    markers: [],
 }
+
+fetch("https://sheets.googleapis.com/v4/spreadsheets/1HQDW4PS8_bUOXzMS4sP8eMIi4DOoB2jyE_BhJdI6gEQ/values/THE_END!A2:D1000?key=AIzaSyCcB76lmXuniVlzJM810ankX2VBizashC0")
+.then(function(res){
+    return res.json()
+})
+.then(function(json){
+    const markers = json.values.map((row) => ({
+        x: row[1],
+        z: row[2],
+        image: "custom.pin.png",
+        imageAnchor: [0.5, 1],
+        imageScale: 0.25,
+        text: row[0] + "\n" + (row[3] ?? ""),
+        font: "bold 15px arial,sans serif",
+        textColor: "red",
+        offsetX: 0,
+        offsetY: 20,
+    }))
+    const viewProjection = new ol.proj.Projection({
+        code: 'VIEW',
+        units: 'pixels',
+    });
+    const dataProjection = new ol.proj.Projection({
+        code: 'DATA',
+        units: 'pixels',
+    });
+    const markersLayer = unmined.createMarkersLayer(markers, dataProjection, viewProjection);
+    unmined.openlayersMap.addLayer(markersLayer);
+})
