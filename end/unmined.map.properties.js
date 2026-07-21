@@ -10,5 +10,9 @@ var UnminedMapProperties = {
     maxRegionZ: 5,
     worldName: "world",
     background: "",
-    markers: new Array()
+    markers: new Array(),
+    enableGrid: true,
+    showGrid: true,
+    centerX: 0,
+    centerZ: 0
 }
